@@ -1,13 +1,13 @@
 
 var viewVoitureMinimum = function(){
-    var p = new Plasm('plasm', 'plasm-inspector');
+    var p = new Plasm('divVoitureMinimum', 'plasm-inspector');
   fun.PLASM(p);
 
     var plasm = document.createElement("div");
-    var canvas = document.getElementsByID('canvasVoitureMinimum')[0];
-    canvas.setAttribute("height","500px");
-    canvas.setAttribute("onmouseover","hiddenBody()");
-    canvas.setAttribute("onmouseout","clearBody()");
+    // var canvas = document.getElementsByID('canvasVoitureMinimum');
+    // canvas.setAttribute("height","500px");
+    // canvas.setAttribute("onmouseover","hiddenBody()");
+    // canvas.setAttribute("onmouseout","clearBody()");
   
     showModelVoitureMinimum();
 }
@@ -28,6 +28,26 @@ function clearBody() {
 var showModelVoitureMinimum = function(){
 
  //utilities functions
+
+  function invertSign(point){
+   return point.map(function(item){ return -item });
+  }
+
+  function traslaPoints(values, points){
+    return points.map(function (item){
+      return [item[0]+values[0], item[1]+values[1], item[2]+values[2]];
+    });
+  }
+
+
+  var scalePoints = function(points,values) {
+    return points.map(function(item){
+      return item.map(function(elem){
+        return elem*values;
+      });
+    });
+  }
+
 
  function bezier_circle_not_centered_map(r, stringaXYZ, vettoreTraslazione, selector){
 
@@ -589,7 +609,7 @@ reinforcement_bars = STRUCT([reinforcement_bars, bar_front]);
 //DRAW
 var voitureMinimum = STRUCT([ top_surface1, car_left, car_right, car_bottom, car_front, car_wheels, coverages_between_wheels, seats, steering_wheel, shift, lateral_glass, lateral_glass_r, reinforcement_bars ]);
 
-return voitureMinimum;
+DRAW(voitureMinimum);
 
 
 

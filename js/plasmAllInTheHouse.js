@@ -1,13 +1,13 @@
 
 var viewAllInTheHouse = function(){
-    var p = new Plasm('plasm', 'plasm-inspector');
+    var p = new Plasm('divAllInTheHouse', 'plasm-inspector');
   fun.PLASM(p);
 
-    var plasm = document.createElement("div");
-    var canvas = document.getElementsByID('canvasAllInTheHouse')[0];
-    canvas.setAttribute("height","500px");
-  canvas.setAttribute("onmouseover","hiddenBody()");
-    canvas.setAttribute("onmouseout","clearBody()");
+  //   var plasm = document.createElement("div");
+  //   var canvas = document.getElementsByID('canvasAllInTheHouse');
+  //   canvas.setAttribute("height","500px");
+  // canvas.setAttribute("onmouseover","hiddenBody()");
+  //   canvas.setAttribute("onmouseout","clearBody()");
   
     showModelAllInTheHouse();
 }
@@ -28,6 +28,22 @@ function clearBody() {
 var showModelAllInTheHouse = function(){
 
 //utilities functions
+
+
+  function traslaPoints(values, points){
+    return points.map(function (item){
+      return [item[0]+values[0], item[1]+values[1], item[2]+values[2]];
+    });
+  }
+
+
+  var scalePoints = function(points,values) {
+    return points.map(function(item){
+      return item.map(function(elem){
+        return elem*values;
+      });
+    });
+  }
 
  function bezier_circle_not_centered_map(r,stringaXYZ, vettoreTraslazione, selector){
 
@@ -1021,7 +1037,7 @@ var model = STRUCT([house, garage]);
 model = T([0,1,2])([1.5,4.5,0.3])(model);
 model = STRUCT([model, lawn, voitureMinimum, lc7_1, lc7_2, lc11_1, lc17_1]);
 
-return model;
+DRAW(model);
 
 
 

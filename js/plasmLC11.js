@@ -1,13 +1,13 @@
 
 var viewLC11 = function(){
-    var p = new Plasm('plasm', 'plasm-inspector');
+    var p = new Plasm('divLC11', 'plasm-inspector');
   fun.PLASM(p);
 
     var plasm = document.createElement("div");
-    var canvas = document.getElementsByID('canvasLC11')[0];
-    canvas.setAttribute("height","500px");
-  canvas.setAttribute("onmouseover","hiddenBody()");
-    canvas.setAttribute("onmouseout","clearBody()");
+  //   var canvas = document.getElementsByID('canvasLC11');
+  //   canvas.setAttribute("height","500px");
+  // canvas.setAttribute("onmouseover","hiddenBody()");
+  //   canvas.setAttribute("onmouseout","clearBody()");
   
     showModelLC11();
 }
@@ -28,6 +28,22 @@ function clearBody() {
 var showModelLC11 = function(){
 
  //utilities functions
+
+
+  function traslaPoints(values, points){
+    return points.map(function (item){
+      return [item[0]+values[0], item[1]+values[1], item[2]+values[2]];
+    });
+  }
+
+
+  var scalePoints = function(points,values) {
+    return points.map(function(item){
+      return item.map(function(elem){
+        return elem*values;
+      });
+    });
+  }
 
  function bezier_circle_not_centered_map(r,stringaXYZ, vettoreTraslazione, selector){
 
@@ -234,7 +250,7 @@ elements_under_table = color_rgb(grey)(elements_under_table);
 ///DRAW
 var lc11 = STRUCT([base_tot_1, base_tot_2, table_tot, elements_under_table]);
 
-return lc11;
+DRAW(lc11);
 
 
 } 

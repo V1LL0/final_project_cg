@@ -1,13 +1,13 @@
 
 var viewLC7 = function(){
-    var p = new Plasm('plasm', 'plasm-inspector');
+    var p = new Plasm('divLC7', 'plasm-inspector');
   fun.PLASM(p);
 
     var plasm = document.createElement("div");
-    var canvas = document.getElementsByID('canvasLC7')[0];
-    canvas.setAttribute("height","500px");
-  canvas.setAttribute("onmouseover","hiddenBody()");
-    canvas.setAttribute("onmouseout","clearBody()");
+  //   var canvas = document.getElementsByID('canvasLC7');
+  //   canvas.setAttribute("height","500px");
+  // canvas.setAttribute("onmouseover","hiddenBody()");
+  //   canvas.setAttribute("onmouseout","clearBody()");
   
     showModelLC7();
 }
@@ -28,6 +28,22 @@ function clearBody() {
 var showModelLC7 = function(){
 
  //utilities functions
+
+
+  function traslaPoints(values, points){
+    return points.map(function (item){
+      return [item[0]+values[0], item[1]+values[1], item[2]+values[2]];
+    });
+  }
+
+
+  var scalePoints = function(points,values) {
+    return points.map(function(item){
+      return item.map(function(elem){
+        return elem*values;
+      });
+    });
+  }
 
  function bezier_circle_not_centered_map(r,stringaXYZ, vettoreTraslazione, selector){
 
@@ -152,7 +168,6 @@ function grid2Ddetailed(dimens,axis1,axis2){
 /////////////////end utilities/////////////////////
 
 
-
 //DOMAINS
 var definition = 32;
 var dom1D = INTERVALS(1)(definition);
@@ -162,100 +177,158 @@ var domRotate = DOMAIN([[0,1],[0,2*PI]])([definition, definition]);
 //COLORS
 var black = [51, 51, 51];
 var light_black = [35, 43, 43];
-var brown = [205, 127, 50];
+var brown = [244, 164, 96];
+var dark_brown = [250, 166, 100];
 var white = [400, 400, 400];
 var red = [204, 0, 0];
 var blue = [30, 144, 255];
 var green = [0, 158, 96];
+var grey = [101, 97, 98];
+var light_grey = [255, 254, 260];
 
-//piano
-var piano = DOMAIN([[0, 2.8], [0, 0.1], [0, 2.8]])([1,1,1]);
-//topElement
-var tp_piece1 = BEZIER(S0)([[0,0,2.8], [0,0,2.9]]);
-var tp_piece2 = BEZIER(S0)([[0,0,2.9], [0,0.3,2.83]]);
-var tp_piece3 = BEZIER(S0)([[0,0.3,2.83], [0,0.3,2.73]]);
-var tp_piece4 = BEZIER(S0)([[0,0.3,2.73], [0,0.1,2.7]]);
-var tp_piece5 = BEZIER(S0)([[0,0.1,2.7], [0,0.1,2.8]]);
-var tp_piece6 = BEZIER(S0)([[0,0.1,2.8], [0,0,2.8]]);
-var tp_piece_middle = BEZIER(S0)([[0,0.1,2.8], [0,0.3,2.83]]);
+//Legs
+var leg_circle1 = bezier_circle_not_centered_map(0.1, "xy", [-1.33,0,0], S0);
+var leg_circle2 = bezier_circle_not_centered_map(0.08, "yz", [-0.1,0,1.89], S0);
 
-var point_top = [0,0.05,2.85];
-var point_down = [0,0.2,2.75];
+var leg_profile1 = BEZIER(S1)(addACoordinate(1, 0, [[-1.43, 0], [-1.43, 1.88], [-1.63, 2.08], [-0.1, 1.99]]));
 
-var tp_lateral1 = BEZIER(S1)([tp_piece1, point_top]);
-var tp_lateral2 = BEZIER(S1)([tp_piece2, point_top]);
-var tp_lateral3 = BEZIER(S1)([tp_piece_middle, point_top]);
-var tp_lateral4 = BEZIER(S1)([tp_piece6, point_top]);
-
-var tp_lateral5 = BEZIER(S1)([tp_piece_middle, point_down]);
-var tp_lateral6 = BEZIER(S1)([tp_piece3, point_down]);
-var tp_lateral7 = BEZIER(S1)([tp_piece4, point_down]);
-var tp_lateral8 = BEZIER(S1)([tp_piece5, point_down]);
-
-tp_lateral1 = MAP( tp_lateral1 )(dom2D);
-tp_lateral2 = MAP( tp_lateral2 )(dom2D);
-tp_lateral3 = MAP( tp_lateral3 )(dom2D);
-tp_lateral4 = MAP( tp_lateral4 )(dom2D);
-tp_lateral5 = MAP( tp_lateral5 )(dom2D);
-tp_lateral6 = MAP( tp_lateral6 )(dom2D);
-tp_lateral7 = MAP( tp_lateral7 )(dom2D);
-tp_lateral8 = MAP( tp_lateral8 )(dom2D);
-
-var tp_lateral = STRUCT([tp_lateral1, tp_lateral2, tp_lateral3, tp_lateral4, tp_lateral5, tp_lateral6, tp_lateral7, tp_lateral8]);
-var tp_lateral_left = T([0,1,2])([2.8,0,0])(tp_lateral);
-
-tp_piece1 = MAP( CYLINDRICAL_SURFACE(tp_piece1)([2.8,0,0]) )(dom2D);
-tp_piece2 = MAP( CYLINDRICAL_SURFACE(tp_piece2)([2.8,0,0]) )(dom2D);
-tp_piece3 = MAP( CYLINDRICAL_SURFACE(tp_piece3)([2.8,0,0]) )(dom2D);
-tp_piece4 = MAP( CYLINDRICAL_SURFACE(tp_piece4)([2.8,0,0]) )(dom2D);
-tp_piece5 = MAP( CYLINDRICAL_SURFACE(tp_piece5)([2.8,0,0]) )(dom2D);
-tp_piece6 = MAP( CYLINDRICAL_SURFACE(tp_piece6)([2.8,0,0]) )(dom2D);
+var leg_surface1 = COONS_PATCH([leg_circle1, leg_circle2, leg_profile1, leg_profile1]);
+var leg_surface1_mapped = MAP(leg_surface1)(dom2D);
+var disk_for_leg_surface = T([1])([-1.33])(DISK(0.1)());
 
 
+var end_leg_element1 = T([0,1,2])([0,-1.33,-0.04])( EXTRUDE([0,0,0.2])( DISK(0.08)() ) );
+var end_leg_element2 = BEZIER(S0)( addACoordinate(1, 0, [[0, 0.16], [0.17, 0.18], [0.15, 0.05], [0, 0.1]]) );
+end_leg_element2 = MAP( ROTATIONAL_SURFACE(end_leg_element2) )(domRotate);
+end_leg_element2 = T([0,1,2])([0,-1.33,-0.17])(end_leg_element2);
 
-//////mushrooms!!
-var profile_base_mushroom = BEZIER(S0)( addACoordinate(1, 0, [[0.065, 0.32], [0.08, 0.15], [0.09, 0]]) );
-var surface_base_mushroom = MAP( ROTATIONAL_SURFACE(profile_base_mushroom) )(domRotate);
-surface_base_mushroom = color_rgb(brown)(surface_base_mushroom);
+var leg = STRUCT([leg_surface1_mapped, disk_for_leg_surface, end_leg_element2]);
+leg = color_rgb(light_grey)(leg);
+end_leg_element1 = color_rgb([0,0,0])(end_leg_element1);
+leg = STRUCT([leg, end_leg_element1]);
 
-var profile_top_mushroom =  BEZIER(S0)( addACoordinate(1, 0, [[0, 0.46], [0.24, 0.44], [0.31, 0.3], [0, 0.32]]) );
-var surface_top_mushroom = MAP( ROTATIONAL_SURFACE(profile_top_mushroom) )(domRotate);
-
-
-var mushroom_black = STRUCT([surface_base_mushroom, color_rgb(black)(surface_top_mushroom) ]);
-var mushroom_red = STRUCT([surface_base_mushroom, color_rgb(red)(surface_top_mushroom) ]);
-var mushroom_white = STRUCT([surface_base_mushroom, color_rgb(white)(surface_top_mushroom) ]);
-var mushroom_blue = STRUCT([surface_base_mushroom, color_rgb(blue)(surface_top_mushroom) ]);
-var mushroom_green = STRUCT([surface_base_mushroom, color_rgb(green)(surface_top_mushroom) ]);
-
-mushroom_black = R([1,2])([-PI/2])(mushroom_black);
-mushroom_red = R([1,2])([-PI/2])(mushroom_red);
-mushroom_white = R([1,2])(-[PI/2])(mushroom_white);
-mushroom_blue = R([1,2])([-PI/2])(mushroom_blue);
-mushroom_green = R([1,2])([-PI/2])(mushroom_green);
-
-mushroom_black = T([0,1,2])([2, 0.1, 0.5])(mushroom_black);
-mushroom_blue = T([0,1,2])([0.6, 0.1, 0.45])(mushroom_blue);
-mushroom_white = T([0,1,2])([1.05, 0.1, 1.65])(mushroom_white);
-mushroom_green = T([0,1,2])([0.35, 0.1, 2.15])(mushroom_green);
-mushroom_red = T([0,1,2])([2.45, 0.1, 2.05])(mushroom_red);
+var legs_4 = STRUCT([ leg, R([0,1])([PI/2])(leg), R([0,1])([PI])(leg), R([0,1])([(3/2.0)*PI])(leg) ]);
+legs_4 = R([0,1])([PI/4])(legs_4);
 
 
+//junction
+var cylindrical_junction_part1 = T([2]) ([1.68]) ( EXTRUDE([0,0,0.54])( DISK(0.12)([definition,2]) ) );
+cylindrical_junction_part1 = color_rgb([0,0,0])(cylindrical_junction_part1);
+var cylindrical_junction_part2 = T([2]) ([1.7]) ( EXTRUDE([0,0,0.32])( DISK(0.13)([definition,2]) ) );
+var cylindrical_junction_part3 = T([2]) ([2.04]) ( EXTRUDE([0,0,0.165])( DISK(0.13)([definition,2]) ) );
+cylindrical_junction_part2 = color_rgb(light_grey)(cylindrical_junction_part2);
+cylindrical_junction_part3 = color_rgb(light_grey)(cylindrical_junction_part3);
 
-///////////Total Struct/////////////
-//piano
-piano = color_rgb(black)(piano);
-//top
-var top_bl = STRUCT([tp_piece1, tp_piece2, tp_piece3, tp_piece5, tp_piece6, tp_lateral, tp_lateral_left]);
-top_bl = color_rgb(light_black)(top_bl);
-var top_br = color_rgb(brown)(tp_piece4);
-top_tot = STRUCT([top_bl, top_br]);
-top_tot = T([0,1,2])([0, 0.001, 0.001])(top_tot);
+var cylindrical_junction_tot = STRUCT([cylindrical_junction_part1, cylindrical_junction_part2, cylindrical_junction_part3]);
 
-//lc17
-var lc17 = STRUCT([piano, top_tot, mushroom_black, mushroom_blue, mushroom_white, mushroom_green, mushroom_red]);
+//other "legs" under seat
+var tube_under_seat_1_circle1 = bezier_circle_not_centered_map(0.1, "xy", [-1.03,0,2.58], S0);
+var tube_under_seat_1_circle2 = bezier_circle_not_centered_map(0.08, "yz", [-0.1,0,2.99], S0);
+var tube_under_seat_1_profile = BEZIER(S1)( addACoordinate(1, 0, [[-1.13, 2.58], [-0.53, 2.92], [-0.4, 2.96], [-0.1, 2.99]] )  );
+var tube_under_seat_1_tot = COONS_PATCH([tube_under_seat_1_circle1, tube_under_seat_1_circle2, tube_under_seat_1_profile, tube_under_seat_1_profile]);
+var tube_under_seat_1_tot_mapped = MAP(tube_under_seat_1_tot)(dom2D);
 
-return lc7;
+tube_under_seat_1_tot_mapped = R([1,2])([PI])(tube_under_seat_1_tot_mapped);
+tube_under_seat_1_tot_mapped = R([0,1])(PI/2.0)(tube_under_seat_1_tot_mapped);
+tube_under_seat_1_tot_mapped = T([2])([5.11])(tube_under_seat_1_tot_mapped);
 
+var tubes_under_seat = STRUCT([ tube_under_seat_1_tot_mapped, R([0,1])((2/3.0)*PI)(tube_under_seat_1_tot_mapped), R([0,1])((4/3.0)*PI)(tube_under_seat_1_tot_mapped) ]);
+tubes_under_seat = color_rgb(light_grey)(tubes_under_seat);
+
+//pillows
+var first_pillow_border_profile = BEZIER(S0)( addACoordinate(1, 0, [[1.47, 2.62], [1.73, 2.69], [1.66, 2.46], [1.47, 2.46]]) );
+var first_pillow_border = MAP( ROTATIONAL_SURFACE(first_pillow_border_profile) )(domRotate);
+
+var first_pillow_intern = EXTRUDE([0, 0, 0.16])( DISK(1.49)() );
+first_pillow_intern = T([2])([2.46])(first_pillow_intern);
+
+var first_pillow = STRUCT([ first_pillow_border, first_pillow_intern ]);
+first_pillow = color_rgb(black)(first_pillow);
+
+
+var second_pillow_top_profile = BEZIER(S0)( addACoordinate(1, 0, [[0, 3.16], [1.73, 3.3], [1.7, 3.1], [1.71, 2.9]]) );
+var second_pillow_top = MAP( ROTATIONAL_SURFACE(second_pillow_top_profile) )(domRotate);
+
+var second_pillow_below_profile = BEZIER(S0)( addACoordinate(1, 0, [[0, 2.64], [1.73, 2.5], [1.7, 2.7], [1.71, 2.9]]) );
+var second_pillow_below = MAP( ROTATIONAL_SURFACE(second_pillow_below_profile) )(domRotate);
+
+var second_pillow = STRUCT([ second_pillow_top, second_pillow_below ]);
+second_pillow = color_rgb(black)(second_pillow);
+
+//Tubes for backrest
+//left
+var tube_element_1_profile1_l = BEZIER(S0)( [[0, 1.01, 2.61], [0.2, 0.79, 2.78], [0.2, 1.25, 2.77], [0, 1.01, 2.61]] );
+var tube_element_1_profile2_l = BEZIER(S0)( [[0.45, 1.01, 2.61], [0.45, 0.79, 2.78], [0.45, 1.25, 2.77], [0.45, 1.01, 2.61]] );
+var tube_element_surface_l = BEZIER(S1)([tube_element_1_profile1_l, tube_element_1_profile2_l]);
+tube_element_surface_l = MAP(tube_element_surface_l)(dom2D);
+
+var tube_element_2_profile1_l = BEZIER(S0)( [[0, 1.01, 2.61], [0.2, 1.25, 2.77], [0.2, 0.79, 2.78], [0, 1.01, 2.61]] );
+var tube_element_2_profile2_l = bezier_circle_not_centered_map(0.07, "xz", [0.07,0,4.24], S0);
+var tube_element_2_profile3_l = BEZIER(S1)( [[0, 1.01, 2.61], [0, 1.39, 3.52], [0, 2.22, 4.53], [0, 0, 4.24]] );
+var tube_element_2_l = COONS_PATCH([tube_element_2_profile1_l, tube_element_2_profile2_l, tube_element_2_profile3_l, tube_element_2_profile3_l ]);
+tube_element_2_l = MAP(tube_element_2_l)(dom2D);
+
+var tubes_l = STRUCT([ tube_element_surface_l, tube_element_2_l ]);
+tubes_l = T([0,1,2])([-1.85, -0.5, -0.13])(tubes_l);
+tubes_l = color_rgb(light_grey)(tubes_l);
+
+//right
+var tube_element_1_profile1_r = BEZIER(S0)( [[0, 1.01, 2.61], [-0.2, 0.79, 2.78], [-0.2, 1.25, 2.77], [0, 1.01, 2.61]] );
+var tube_element_1_profile2_r = BEZIER(S0)( [[-0.45, 1.01, 2.61], [-0.45, 0.79, 2.78], [-0.45, 1.25, 2.77], [-0.45, 1.01, 2.61]] );
+var tube_element_surface_r = BEZIER(S1)([tube_element_1_profile1_r, tube_element_1_profile2_r]);
+tube_element_surface_r = MAP(tube_element_surface_r)(dom2D);
+
+var tube_element_2_profile1_r = BEZIER(S0)( [[0, 1.01, 2.61], [-0.2, 1.25, 2.77], [-0.2, 0.79, 2.78], [0, 1.01, 2.61]] );
+var right_points = [[1,0,0],[1,0,1.6],[-1.6,0,1.6],[-1.6,0,0],[-1.6,0,-1.6],[1,0,-1.6],[1,0,0]];
+right_points = scalePoints(right_points,0.07);
+right_points = traslaPoints([-0.07,0,4.24], right_points);
+var tube_element_2_profile2_r = BEZIER(S0)( right_points );
+
+var tube_element_2_profile3_r = BEZIER(S1)( [[0, 1.01, 2.61], [0, 1.39, 3.52], [0, 2.22, 4.53], [0, 0, 4.24]] );
+var tube_element_2_r = COONS_PATCH([tube_element_2_profile1_r, tube_element_2_profile2_r, tube_element_2_profile3_r, tube_element_2_profile3_r ]);
+tube_element_2_r = MAP(tube_element_2_r)(dom2D);
+
+var tubes_r = STRUCT([ tube_element_surface_r, tube_element_2_r ]);
+
+tubes_r = T([0,1,2])([1.85, -0.5, -0.13])(tubes_r);
+tubes_r = color_rgb(light_grey)(tubes_r);
+
+//back
+
+var tube_back_circle1 = bezier_circle_not_centered_map(0.07, "xz", [0,-2,2.48], S0);
+var tube_back_circle2 = bezier_circle_not_centered_map(0.07, "xy", [0,-2.4,4.24], S0);
+var tube_back_profile = BEZIER(S1)([[-0.07, -2, 2.48], [-0.07, -2.7, 2.4], [-0.07, -2.5, 3], [-0.07,-2.4,4.24]]);
+var tube_back_surface = COONS_PATCH([tube_back_circle1, tube_back_circle2, tube_back_profile, tube_back_profile]);
+tube_back_surface = MAP(tube_back_surface)(dom2D);
+tube_back_surface = T([1,2])([0.45, 0.08])(tube_back_surface);
+
+var tubes_for_back_of_chair = STRUCT([ tubes_l, tubes_r, tube_back_surface ]);
+
+//back_pillow
+var back_pillow_circle1 = BEZIER(S0)( addACoordinate(1, 0.3, [[1.8, 4.4], [1.24, 4], [2.4, 3.35], [2.39, 4.53], [1.8, 4.4]]) );
+var back_pillow_circle2 = BEZIER(S0)( addACoordinate(1, 0.3, [[-1.8, 4.4], [-1.24, 4], [-2.4, 3.35], [-2.39, 4.53], [-1.8, 4.4]]) );
+var back_pillow_circle_middle = BEZIER(S0)( addACoordinate(0, 0, [[-1.9, 4.4], [-1.44, 3.9], [-2.4, 3.45], [-2.39, 4.63], [-1.9, 4.4]]) );
+
+var back_pillow_profile1 = BEZIER(S1)( addACoordinate(2, 4.4, [[-1.8, 0.3], [-1.89, -1.12], [-1.21, -1.75], [0, -1.9]]) );
+var back_pillow_profile2 = BEZIER(S1)( addACoordinate(2, 4.4, [[1.8, 0.3], [1.89, -1.12], [1.21, -1.75], [0, -1.9]]) );
+
+var back_pillow_surface1 = COONS_PATCH([back_pillow_circle2, back_pillow_circle_middle, back_pillow_profile1, back_pillow_profile1 ]);
+var back_pillow_surface2 = COONS_PATCH([back_pillow_circle1, back_pillow_circle_middle, back_pillow_profile2, back_pillow_profile2 ]);
+back_pillow_surface1 = MAP(back_pillow_surface1)(dom2D);
+back_pillow_surface2 = MAP(back_pillow_surface2)(dom2D);
+
+back_pillow_closure_l_profile = BEZIER(S0)( addACoordinate(1, 0, [[0, 0], [0.13, 0], [0.16, 0.07], [0.17, 0]]) );
+
+
+var back_pillow_closure_l = MAP( BEZIER(S1)([back_pillow_circle2, [-1.8, 0.3, 4.2]]) )(dom2D);
+var back_pillow_closure_r = MAP( BEZIER(S1)([back_pillow_circle1, [1.8, 0.3, 4.2]]) )(dom2D);
+
+var back_pillow = STRUCT([back_pillow_surface1, back_pillow_surface2, back_pillow_closure_l, back_pillow_closure_r]);
+back_pillow = color_rgb(black)(back_pillow);
+
+//DRAW
+var lc7 = STRUCT([ legs_4, cylindrical_junction_tot, tubes_under_seat, first_pillow, second_pillow, tubes_for_back_of_chair, back_pillow ]);
+
+DRAW(lc7);
 
 } 

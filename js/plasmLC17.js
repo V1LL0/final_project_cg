@@ -1,13 +1,13 @@
 
 var viewLC17 = function(){
-  	var p = new Plasm('plasm', 'plasm-inspector');
+  	var p = new Plasm('divLC17', 'plasm-inspector');
 	fun.PLASM(p);
 
     var plasm = document.createElement("div");
-    var canvas = document.getElementsByID('canvasLC17')[0];
-    canvas.setAttribute("height","500px");
-	canvas.setAttribute("onmouseover","hiddenBody()");
-    canvas.setAttribute("onmouseout","clearBody()");
+    // var canvas = document.getElementById('canvasLC17');
+    // canvas.setAttribute("height","500px");
+    // canvas.setAttribute("onmouseover","hiddenBody()");
+    // canvas.setAttribute("onmouseout","clearBody()");
   
     showModelLC17();
 }
@@ -28,6 +28,23 @@ function clearBody() {
 var showModelLC17 = function(){
 
  //utilities functions
+
+
+  function traslaPoints(values, points){
+    return points.map(function (item){
+      return [item[0]+values[0], item[1]+values[1], item[2]+values[2]];
+    });
+  }
+
+
+  var scalePoints = function(points,values) {
+    return points.map(function(item){
+      return item.map(function(elem){
+        return elem*values;
+      });
+    });
+  }
+
 
  function bezier_circle_not_centered_map(r,stringaXYZ, vettoreTraslazione, selector){
 
@@ -255,7 +272,7 @@ top_tot = T([0,1,2])([0, 0.001, 0.001])(top_tot);
 //lc17
 var lc17 = STRUCT([piano, top_tot, mushroom_black, mushroom_blue, mushroom_white, mushroom_green, mushroom_red]);
 
-return lc17;
+DRAW(lc17);
 
 
 } 
