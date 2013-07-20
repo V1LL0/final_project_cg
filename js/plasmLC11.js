@@ -4,7 +4,7 @@ var viewLC11 = function(){
   fun.PLASM(p);
 
     var plasm = document.createElement("div");
-    var canvas = document.getElementsByID('canvasLC17')[0];
+    var canvas = document.getElementsByID('canvasLC11')[0];
     canvas.setAttribute("height","500px");
   canvas.setAttribute("onmouseover","hiddenBody()");
     canvas.setAttribute("onmouseout","clearBody()");
