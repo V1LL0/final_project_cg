@@ -1,4 +1,4 @@
 final-project-CG
 ================
 
-https://v1ll0.github.io/final-project-cg
+https://v1ll0.github.io/final_project_cg
