@@ -1409,7 +1409,7 @@ DRAW(voitureMinimum);\
 } \
 showModelVoitureMinimum();\
    ";
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+    window.createPopup("Copy to clipboard: Ctrl+C, Enter", text);
 };
 
 function copyAllInAHouse() {
