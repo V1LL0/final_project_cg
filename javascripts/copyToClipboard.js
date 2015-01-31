@@ -4,7 +4,7 @@ function copyLC7() {
     document.execCommand('copy');
 };
 
-document.getElementById("copyLC7").onclick = this.copyLC7;
+//document.getElementById("copyLC7").onclick = this.copyLC7;
 
 function copyLC11() {
     var str = document.getElementById("LC11_text").value;
@@ -12,7 +12,7 @@ function copyLC11() {
     document.execCommand('copy');
 };
 
-document.getElementById("copyLC11").onclick = this.copyLC11;
+//document.getElementById("copyLC11").onclick = this.copyLC11;
 
 function copyLC17() {
     var str = document.getElementById("LC17_text").value;
@@ -20,7 +20,7 @@ function copyLC17() {
     document.execCommand('copy');
 };
 
-document.getElementById("copyLC17").onclick = this.copyLC17;
+//document.getElementById("copyLC17").onclick = this.copyLC17;
 
 function copyVoitureMinimum() {
     var str = document.getElementById("VoitureMinimum_text").value;
@@ -28,7 +28,7 @@ function copyVoitureMinimum() {
     document.execCommand('copy');
 };
 
-document.getElementById("copyVoitureMinimum").onclick = this.copyVoitureMinimum;
+//document.getElementById("copyVoitureMinimum").onclick = this.copyVoitureMinimum;
 
 function copyAllInAHouse() {
     var str = document.getElementById("AllInAHouse_text").value;
@@ -36,4 +36,4 @@ function copyAllInAHouse() {
     document.execCommand('copy');
 };
 
-document.getElementById("copyAllInAHouse").onclick = this.copyAllInAHouse;
+//document.getElementById("copyAllInAHouse").onclick = this.copyAllInAHouse;
