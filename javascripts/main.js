@@ -1,26 +1,14 @@
-// main.js
-var client = new ZeroClipboard( document.getElementById("copy-button"), {
-
-moviePath: "/flash/ZeroClipboard.swf"
-
+var clientTarget = new ZeroClipboard( $("#target-to-copy"), {
+    moviePath: "/flash/ZeroClipboard.swf",
+    debug: false
 } );
 
- 
+clientTarget.on( "load", function(clientTarget)
+{
+    $('#flash-loaded').fadeIn();
 
-client.on( "load", function(client) {
-
-// alert( "movie is loaded" );
-
- 
-
-client.on( "complete", function(client, args) {
-
-// `this` is the element that was clicked
-
-this.style.display = "none";
-
-alert("Copied text to clipboard: " + args.text );
-
-} );
-
+    clientTarget.on( "complete", function(clientTarget, args) {
+        clientTarget.setText( args.text );
+        $('#target-to-copy-text').fadeIn();
+    } );
 } );
