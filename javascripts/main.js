@@ -6,11 +6,11 @@ var clientTarget = new ZeroClipboard( $("#target-to-copy"), {
 clientTarget.on( "load", function(clientTarget)
 {
     
-    $('#flash-loaded').fadeIn();
+    //$('#flash-loaded').fadeIn();
 
     clientTarget.on( "complete", function(clientTarget, args) {
         clientTarget.setText( args.text );
         console.log("sono qui: "+args.text);
-        $('#target-to-copy-text').fadeIn();
+        //$('#target-to-copy-text').fadeIn();
     } );
 } );
