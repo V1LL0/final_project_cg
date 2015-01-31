@@ -1,6 +1,7 @@
 function copyLC7() {
     var str = document.getElementById("LC7_text").value;
     var LC7_text = $('#LC7_text').val(str).select();
+    console.log(LC7_text);
     document.execCommand('copy');
 };
 
