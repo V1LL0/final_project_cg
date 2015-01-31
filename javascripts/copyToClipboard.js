@@ -1,5 +1,5 @@
 function copyLC7() {
-   var text = '
+   var text = "
 
 
 var showModelLC7 = function(){
@@ -28,15 +28,15 @@ var showModelLC7 = function(){
     selector = S0
 
   if(stringaXYZ === undefined)
-    var stringaXYZ = "xy";
+    var stringaXYZ = \"xy\";
 
-  if(stringaXYZ === "xz")
+  if(stringaXYZ === \"xz\")
     var base_points = [[-1,0,0],[-1,0,1.6],[1.6,0,1.6],[1.6,0,0],[1.6,0,-1.6],[-1,0,-1.6],[-1,0,0]];
 
-  if(stringaXYZ === "xy")
+  if(stringaXYZ === \"xy\")
     var base_points = [[-1,0,0],[-1,1.6,0],[1.6,1.6,0],[1.6,0,0],[1.6,-1.6,0],[-1,-1.6,0],[-1,0,0]];
 
-  if(stringaXYZ === "yz")
+  if(stringaXYZ === \"yz\")
     var base_points = [[0,0,1],[0,1.6,1],[0,1.6,-1.6],[0,0,-1.6],[0,-1.6,-1.6],[0,-1.6,1],[0,0,1]];
 
   var circle_points = scalePoints(base_points,r);
@@ -164,8 +164,8 @@ var grey = [101, 97, 98];
 var light_grey = [255, 254, 260];
 
 //Legs
-var leg_circle1 = bezier_circle_not_centered_map(0.1, "xy", [-1.33,0,0], S0);
-var leg_circle2 = bezier_circle_not_centered_map(0.08, "yz", [-0.1,0,1.89], S0);
+var leg_circle1 = bezier_circle_not_centered_map(0.1, \"xy\", [-1.33,0,0], S0);
+var leg_circle2 = bezier_circle_not_centered_map(0.08, \"yz\", [-0.1,0,1.89], S0);
 
 var leg_profile1 = BEZIER(S1)(addACoordinate(1, 0, [[-1.43, 0], [-1.43, 1.88], [-1.63, 2.08], [-0.1, 1.99]]));
 
@@ -198,9 +198,9 @@ cylindrical_junction_part3 = color_rgb(light_grey)(cylindrical_junction_part3);
 
 var cylindrical_junction_tot = STRUCT([cylindrical_junction_part1, cylindrical_junction_part2, cylindrical_junction_part3]);
 
-//other "legs" under seat
-var tube_under_seat_1_circle1 = bezier_circle_not_centered_map(0.1, "xy", [-1.03,0,2.58], S0);
-var tube_under_seat_1_circle2 = bezier_circle_not_centered_map(0.08, "yz", [-0.1,0,2.99], S0);
+//other \"legs\" under seat
+var tube_under_seat_1_circle1 = bezier_circle_not_centered_map(0.1, \"xy\", [-1.03,0,2.58], S0);
+var tube_under_seat_1_circle2 = bezier_circle_not_centered_map(0.08, \"yz\", [-0.1,0,2.99], S0);
 var tube_under_seat_1_profile = BEZIER(S1)( addACoordinate(1, 0, [[-1.13, 2.58], [-0.53, 2.92], [-0.4, 2.96], [-0.1, 2.99]] )  );
 var tube_under_seat_1_tot = COONS_PATCH([tube_under_seat_1_circle1, tube_under_seat_1_circle2, tube_under_seat_1_profile, tube_under_seat_1_profile]);
 var tube_under_seat_1_tot_mapped = MAP(tube_under_seat_1_tot)(dom2D);
@@ -240,7 +240,7 @@ var tube_element_surface_l = BEZIER(S1)([tube_element_1_profile1_l, tube_element
 tube_element_surface_l = MAP(tube_element_surface_l)(dom2D);
 
 var tube_element_2_profile1_l = BEZIER(S0)( [[0, 1.01, 2.61], [0.2, 1.25, 2.77], [0.2, 0.79, 2.78], [0, 1.01, 2.61]] );
-var tube_element_2_profile2_l = bezier_circle_not_centered_map(0.07, "xz", [0.07,0,4.24], S0);
+var tube_element_2_profile2_l = bezier_circle_not_centered_map(0.07, \"xz\", [0.07,0,4.24], S0);
 var tube_element_2_profile3_l = BEZIER(S1)( [[0, 1.01, 2.61], [0, 1.39, 3.52], [0, 2.22, 4.53], [0, 0, 4.24]] );
 var tube_element_2_l = COONS_PATCH([tube_element_2_profile1_l, tube_element_2_profile2_l, tube_element_2_profile3_l, tube_element_2_profile3_l ]);
 tube_element_2_l = MAP(tube_element_2_l)(dom2D);
@@ -272,8 +272,8 @@ tubes_r = color_rgb(light_grey)(tubes_r);
 
 //back
 
-var tube_back_circle1 = bezier_circle_not_centered_map(0.07, "xz", [0,-2,2.48], S0);
-var tube_back_circle2 = bezier_circle_not_centered_map(0.07, "xy", [0,-2.4,4.24], S0);
+var tube_back_circle1 = bezier_circle_not_centered_map(0.07, \"xz\", [0,-2,2.48], S0);
+var tube_back_circle2 = bezier_circle_not_centered_map(0.07, \"xy\", [0,-2.4,4.24], S0);
 var tube_back_profile = BEZIER(S1)([[-0.07, -2, 2.48], [-0.07, -2.7, 2.4], [-0.07, -2.5, 3], [-0.07,-2.4,4.24]]);
 var tube_back_surface = COONS_PATCH([tube_back_circle1, tube_back_circle2, tube_back_profile, tube_back_profile]);
 tube_back_surface = MAP(tube_back_surface)(dom2D);
@@ -311,13 +311,13 @@ DRAW(lc7);
 } 
 
 showModelLC7();
-   ';
-   window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   ";
+   window.prompt(\"Copy to clipboard: Ctrl+C, Enter\", text);
 };
 
 
 function copyLC11() {
-   var text = '
+   var text = "
 
 
 var showModelLC11 = function(){
@@ -346,15 +346,15 @@ var showModelLC11 = function(){
     selector = S0
 
   if(stringaXYZ === undefined)
-    var stringaXYZ = "xy";
+    var stringaXYZ = \"xy\";
 
-  if(stringaXYZ === "xz")
+  if(stringaXYZ === \"xz\")
     var base_points = [[-1,0,0],[-1,0,1.6],[1.6,0,1.6],[1.6,0,0],[1.6,0,-1.6],[-1,0,-1.6],[-1,0,0]];
 
-  if(stringaXYZ === "xy")
+  if(stringaXYZ === \"xy\")
     var base_points = [[-1,0,0],[-1,1.6,0],[1.6,1.6,0],[1.6,0,0],[1.6,-1.6,0],[-1,-1.6,0],[-1,0,0]];
 
-  if(stringaXYZ === "yz")
+  if(stringaXYZ === \"yz\")
     var base_points = [[0,0,1],[0,1.6,1],[0,1.6,-1.6],[0,0,-1.6],[0,-1.6,-1.6],[0,-1.6,1],[0,0,1]];
 
   var circle_points = scalePoints(base_points,r);
@@ -550,13 +550,13 @@ DRAW(lc11);
 
 } 
 showModelLC11();
-   ';
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   ";
+    window.prompt(\"Copy to clipboard: Ctrl+C, Enter\", text);
 };
 
 
 function copyLC17() {
-   var text = '
+   var text = "
 
 var showModelLC17 = function(){
 
@@ -585,15 +585,15 @@ var showModelLC17 = function(){
     selector = S0
 
   if(stringaXYZ === undefined)
-    var stringaXYZ = "xy";
+    var stringaXYZ = \"xy\";
 
-  if(stringaXYZ === "xz")
+  if(stringaXYZ === \"xz\")
     var base_points = [[-1,0,0],[-1,0,1.6],[1.6,0,1.6],[1.6,0,0],[1.6,0,-1.6],[-1,0,-1.6],[-1,0,0]];
 
-  if(stringaXYZ === "xy")
+  if(stringaXYZ === \"xy\")
     var base_points = [[-1,0,0],[-1,1.6,0],[1.6,1.6,0],[1.6,0,0],[1.6,-1.6,0],[-1,-1.6,0],[-1,0,0]];
 
-  if(stringaXYZ === "yz")
+  if(stringaXYZ === \"yz\")
     var base_points = [[0,0,1],[0,1.6,1],[0,1.6,-1.6],[0,0,-1.6],[0,-1.6,-1.6],[0,-1.6,1],[0,0,1]];
 
   var circle_points = scalePoints(base_points,r);
@@ -810,13 +810,13 @@ DRAW(lc17);
 
 } 
 showModelLC17();
-   ';
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   ";
+    window.prompt(\"Copy to clipboard: Ctrl+C, Enter\", text);
 };
 
 
 function copyVoitureMinimum() {
-    var text = '
+    var text = "
 
 var showModelVoitureMinimum = function(){
 
@@ -848,15 +848,15 @@ var showModelVoitureMinimum = function(){
     selector = S0
 
   if(stringaXYZ === undefined)
-    var stringaXYZ = "xy";
+    var stringaXYZ = \"xy\";
 
-  if(stringaXYZ === "xz")
+  if(stringaXYZ === \"xz\")
     var base_points = [[-1,0,0],[-1,0,1.6],[1.6,0,1.6],[1.6,0,0],[1.6,0,-1.6],[-1,0,-1.6],[-1,0,0]];
 
-  if(stringaXYZ === "xy")
+  if(stringaXYZ === \"xy\")
     var base_points = [[-1,0,0],[-1,1.6,0],[1.6,1.6,0],[1.6,0,0],[1.6,-1.6,0],[-1,-1.6,0],[-1,0,0]];
 
-  if(stringaXYZ === "yz")
+  if(stringaXYZ === \"yz\")
     var base_points = [[0,0,1],[0,1.6,1],[0,1.6,-1.6],[0,0,-1.6],[0,-1.6,-1.6],[0,-1.6,1],[0,0,1]];
 
   var circle_points = scalePoints(base_points,r);
@@ -1218,8 +1218,8 @@ bar_right = T([0,1,2])([0,6,2.5])(bar_right);
 
 var bar_back_piece1 = T([0,1,2])([11.15, -1.3, 0.35])( R([0,1])([[PI/2]])(bar_left) );
 
-var bar_back_piece2_circle1 = bezier_circle_not_centered_map(0.1, "xz", [0,0,0], S0);
-var bar_back_piece2_circle2 = bezier_circle_not_centered_map(0.08, "xy", [0,0.3,-1.35], S0);
+var bar_back_piece2_circle1 = bezier_circle_not_centered_map(0.1, \"xz\", [0,0,0], S0);
+var bar_back_piece2_circle2 = bezier_circle_not_centered_map(0.08, \"xy\", [0,0.3,-1.35], S0);
 var bar_back_piece2_profile = BEZIER(S1)( addACoordinate(0, -0.1, [[0, 0], [0.34, 0], [0.34, 0.09], [0.3, -1.35]] )  );
 var bar_back_piece2_surface = COONS_PATCH([bar_back_piece2_circle1, bar_back_piece2_circle2, bar_back_piece2_profile, bar_back_piece2_profile]);
 
@@ -1408,12 +1408,12 @@ DRAW(voitureMinimum);
 
 } 
 showModelVoitureMinimum();
-   ';
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   ";
+    window.prompt(\"Copy to clipboard: Ctrl+C, Enter\", text);
 };
 
 function copyAllInAHouse() {
-    var text = '
+    var text = "
 
 
 var showModelAllInTheHouse = function(){
@@ -1442,15 +1442,15 @@ var showModelAllInTheHouse = function(){
     selector = S0
 
   if(stringaXYZ === undefined)
-    var stringaXYZ = "xy";
+    var stringaXYZ = \"xy\";
 
-  if(stringaXYZ === "xz")
+  if(stringaXYZ === \"xz\")
     var base_points = [[-1,0,0],[-1,0,1.6],[1.6,0,1.6],[1.6,0,0],[1.6,0,-1.6],[-1,0,-1.6],[-1,0,0]];
 
-  if(stringaXYZ === "xy")
+  if(stringaXYZ === \"xy\")
     var base_points = [[-1,0,0],[-1,1.6,0],[1.6,1.6,0],[1.6,0,0],[1.6,-1.6,0],[-1,-1.6,0],[-1,0,0]];
 
-  if(stringaXYZ === "yz")
+  if(stringaXYZ === \"yz\")
     var base_points = [[0,0,1],[0,1.6,1],[0,1.6,-1.6],[0,0,-1.6],[0,-1.6,-1.6],[0,-1.6,1],[0,0,1]];
 
   var circle_points = scalePoints(base_points,r);
@@ -1769,8 +1769,8 @@ var lc11 = STRUCT([base_tot_1, base_tot_2, table_tot, elements_under_table]);
 ////////////////////////////////////LC7////////////////////////////////////////
 
 //Legs
-var leg_circle1 = bezier_circle_not_centered_map(0.1, "xy", [-1.33,0,0], S0);
-var leg_circle2 = bezier_circle_not_centered_map(0.08, "yz", [-0.1,0,1.89], S0);
+var leg_circle1 = bezier_circle_not_centered_map(0.1, \"xy\", [-1.33,0,0], S0);
+var leg_circle2 = bezier_circle_not_centered_map(0.08, \"yz\", [-0.1,0,1.89], S0);
 
 var leg_profile1 = BEZIER(S1)(addACoordinate(1, 0, [[-1.43, 0], [-1.43, 1.88], [-1.63, 2.08], [-0.1, 1.99]]));
 
@@ -1803,9 +1803,9 @@ cylindrical_junction_part3 = color_rgb(light_grey)(cylindrical_junction_part3);
 
 var cylindrical_junction_tot = STRUCT([cylindrical_junction_part1, cylindrical_junction_part2, cylindrical_junction_part3]);
 
-//other "legs" under seat
-var tube_under_seat_1_circle1 = bezier_circle_not_centered_map(0.1, "xy", [-1.03,0,2.58], S0);
-var tube_under_seat_1_circle2 = bezier_circle_not_centered_map(0.08, "yz", [-0.1,0,2.99], S0);
+//other \"legs\" under seat
+var tube_under_seat_1_circle1 = bezier_circle_not_centered_map(0.1, \"xy\", [-1.03,0,2.58], S0);
+var tube_under_seat_1_circle2 = bezier_circle_not_centered_map(0.08, \"yz\", [-0.1,0,2.99], S0);
 var tube_under_seat_1_profile = BEZIER(S1)( addACoordinate(1, 0, [[-1.13, 2.58], [-0.53, 2.92], [-0.4, 2.96], [-0.1, 2.99]] )  );
 var tube_under_seat_1_tot = COONS_PATCH([tube_under_seat_1_circle1, tube_under_seat_1_circle2, tube_under_seat_1_profile, tube_under_seat_1_profile]);
 var tube_under_seat_1_tot_mapped = MAP(tube_under_seat_1_tot)(dom2D);
@@ -1845,7 +1845,7 @@ var tube_element_surface_l = BEZIER(S1)([tube_element_1_profile1_l, tube_element
 tube_element_surface_l = MAP(tube_element_surface_l)(dom2D);
 
 var tube_element_2_profile1_l = BEZIER(S0)( [[0, 1.01, 2.61], [0.2, 1.25, 2.77], [0.2, 0.79, 2.78], [0, 1.01, 2.61]] );
-var tube_element_2_profile2_l = bezier_circle_not_centered_map(0.07, "xz", [0.07,0,4.24], S0);
+var tube_element_2_profile2_l = bezier_circle_not_centered_map(0.07, \"xz\", [0.07,0,4.24], S0);
 var tube_element_2_profile3_l = BEZIER(S1)( [[0, 1.01, 2.61], [0, 1.39, 3.52], [0, 2.22, 4.53], [0, 0, 4.24]] );
 var tube_element_2_l = COONS_PATCH([tube_element_2_profile1_l, tube_element_2_profile2_l, tube_element_2_profile3_l, tube_element_2_profile3_l ]);
 tube_element_2_l = MAP(tube_element_2_l)(dom2D);
@@ -1877,8 +1877,8 @@ tubes_r = color_rgb(light_grey)(tubes_r);
 
 //back
 
-var tube_back_circle1 = bezier_circle_not_centered_map(0.07, "xz", [0,-2,2.48], S0);
-var tube_back_circle2 = bezier_circle_not_centered_map(0.07, "xy", [0,-2.4,4.24], S0);
+var tube_back_circle1 = bezier_circle_not_centered_map(0.07, \"xz\", [0,-2,2.48], S0);
+var tube_back_circle2 = bezier_circle_not_centered_map(0.07, \"xy\", [0,-2.4,4.24], S0);
 var tube_back_profile = BEZIER(S1)([[-0.07, -2, 2.48], [-0.07, -2.7, 2.4], [-0.07, -2.5, 3], [-0.07,-2.4,4.24]]);
 var tube_back_surface = COONS_PATCH([tube_back_circle1, tube_back_circle2, tube_back_profile, tube_back_profile]);
 tube_back_surface = MAP(tube_back_surface)(dom2D);
@@ -2146,8 +2146,8 @@ bar_right = T([0,1,2])([0,6,2.5])(bar_right);
 
 var bar_back_piece1 = T([0,1,2])([11.15, -1.3, 0.35])( R([0,1])([[PI/2]])(bar_left) );
 
-var bar_back_piece2_circle1 = bezier_circle_not_centered_map(0.1, "xz", [0,0,0], S0);
-var bar_back_piece2_circle2 = bezier_circle_not_centered_map(0.08, "xy", [0,0.3,-1.35], S0);
+var bar_back_piece2_circle1 = bezier_circle_not_centered_map(0.1, \"xz\", [0,0,0], S0);
+var bar_back_piece2_circle2 = bezier_circle_not_centered_map(0.08, \"xy\", [0,0.3,-1.35], S0);
 var bar_back_piece2_profile = BEZIER(S1)( addACoordinate(0, -0.1, [[0, 0], [0.34, 0], [0.34, 0.09], [0.3, -1.35]] )  );
 var bar_back_piece2_surface = COONS_PATCH([bar_back_piece2_circle1, bar_back_piece2_circle2, bar_back_piece2_profile, bar_back_piece2_profile]);
 
@@ -2434,6 +2434,6 @@ DRAW(model);
 
 } 
 showModelAllInTheHouse();
-   ';
-    window.prompt("Copy to clipboard: Ctrl+C, Enter", text);
+   ";
+    window.prompt(\"Copy to clipboard: Ctrl+C, Enter\", text);
 };
