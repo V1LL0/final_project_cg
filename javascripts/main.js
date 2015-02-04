@@ -1,3 +1,4 @@
+/*
 var clientTarget = new ZeroClipboard( $("#target-to-copy"), {
     moviePath: "./ZeroClipboard.swf",
     debug: false
@@ -16,3 +17,20 @@ clientTarget.onload = function(clientTarget)
         //$('#target-to-copy-text').fadeIn();
     };
 };
+
+*/
+
+
+
+
+
+var clipone = new ZeroClipboard( document.getElementById("target-to-copy"), {
+  moviePath: "./ZeroClipboard.swf"
+} );
+
+clipone.on( 'complete', function(client, args) {
+	
+	alert('one');
+	alert('Clicked ' + this.id);
+	
+} );
