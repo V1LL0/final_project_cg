@@ -46,7 +46,6 @@ $(document).ready(function() {
     console.log("Flash movie loaded and ready.");
 
     this.on("aftercopy", function(event) {
-      console.log("Copied text to clipboard: " + event.data["text/plain"]);
     });
   });
 
